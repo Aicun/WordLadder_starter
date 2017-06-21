@@ -58,7 +58,7 @@ public class ExampleUnitTest {
         try {
             InputStream inputStream = openFile("words.txt");
             PathDictionary dictionary = new PathDictionary(inputStream);
-            String[] results = dictionary.findPath("gain", "aaaa");
+            String[] results = dictionary.findPath("gain", "fire");
             for (String str : results) {
                 System.out.println(str);
             }

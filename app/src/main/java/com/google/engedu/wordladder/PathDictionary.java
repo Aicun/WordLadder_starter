@@ -15,21 +15,14 @@
 
 package com.google.engedu.wordladder;
 
-import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Set;
 
 public class PathDictionary {
@@ -42,7 +35,7 @@ public class PathDictionary {
         }
         //Log.i("Word ladder", "Loading dict");
         BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
-        String line = null;
+        String line;
         //Log.i("Word ladder", "Loading dict");
         while ((line = in.readLine()) != null) {
             String word = line.trim();
@@ -91,13 +84,14 @@ public class PathDictionary {
         //in case a word is added to queue for multiple times
         Set<String> visited = new HashSet<>();
         visited.add(start);
-
+        Ladder finallLadder = null;
         while (queue.peek() != null) {
             Ladder ladder = queue.poll();
 
             // when the end word is reached, return
             if (end.equals(ladder.getLastWord())) {
-                return ladder.getPath().toArray(new String[ladder.getPath().size()]);
+                finallLadder = ladder;
+                break;
             }
 
             //other wise, find all the neighbour of the current ladder
@@ -115,13 +109,6 @@ public class PathDictionary {
                 }
             }
         }
-
-        //this code will never be executed
-        if (!queue.isEmpty()) {
-            Ladder l = queue.peek();
-            List<String> p = l.getPath();
-            return p.toArray(new String[p.size()]);
-        }
-        return null;
+        return finallLadder == null ? null : finallLadder.getPath().toArray(new String[finallLadder.getPath().size()]);
     }
 }
