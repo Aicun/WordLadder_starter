@@ -10,7 +10,7 @@ class Ladder {
 
     private List<String> path;  //For storing path
     private String lastWord;  //For storing last word of path
-    //private int length;   //Length of the path.
+    private int length;   //Length of the path.
 
     public Ladder(List<String> path) {
         this.path = path;
@@ -18,7 +18,7 @@ class Ladder {
 
     public Ladder(List<String> path, int length, String lastWord) {
         this.path = path;
-        //this.length = length;
+        this.length = length;
         this.lastWord = lastWord;
     }
 
@@ -26,9 +26,9 @@ class Ladder {
         return path;
     }
 
-    /*public int getLength() {
+    public int getLength() {
         return length;
-    }*/
+    }
 
     public String getLastWord() {
         return lastWord;
@@ -38,7 +38,7 @@ class Ladder {
         this.path = path;
     }
 
-   /* public void setLength(int length) {
+    public void setLength(int length) {
         this.length = length;
-    }*/
+    }
 }

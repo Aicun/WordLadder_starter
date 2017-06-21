@@ -77,31 +77,40 @@ public class PathDictionary {
         return neighbours;
     }
 
+    //find path from start to end
     public String[] findPath(String start, String end) {
+
+        //for each ladder has its own path, this is the init path
         List<String> path = new ArrayList<>();
         path.add(start);
 
+        //and the init ladder to queue
         ArrayDeque<Ladder> queue = new ArrayDeque<>();
         queue.add(new Ladder(path, 1, start));
 
+        //in case a word is added to queue for multiple times
         Set<String> visited = new HashSet<>();
         visited.add(start);
 
         while (queue.peek() != null) {
             Ladder ladder = queue.poll();
 
+            // when the end word is reached, return
             if (end.equals(ladder.getLastWord())) {
                 return ladder.getPath().toArray(new String[ladder.getPath().size()]);
             }
 
+            //other wise, find all the neighbour of the current ladder
             List<String> neighbours = neighbours(ladder.getLastWord());
+
+            //for each neighbour, create a new ladder, increase the length, and add to queue
             for (String neighbour : neighbours) {
                 if (!visited.contains(neighbour)) {
                     visited.add(neighbour);
                     List<String> newPath = new ArrayList<>(ladder.getPath());
                     newPath.add(neighbour);
 
-                    Ladder newLadder = new Ladder(newPath, 1, neighbour);
+                    Ladder newLadder = new Ladder(newPath, ladder.getLength()+1, neighbour);
                     queue.add(newLadder);
                 }
             }
